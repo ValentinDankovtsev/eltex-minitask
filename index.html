@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>eltex</title>
+</head>
+<script>
+
+  const str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+-_$~";
+  const without = ["C", "P", "S", "X"];
+  const symbols = ["+", "-", "_", "$", "~"];
+  const length = str.length;
+  let replaceSymbol
+  let replaceNumber
+  let countReplaceSymbol = 0;
+  let countReplaceNumber = 0;
+  let countAnotherSymbols = 0;
+  const N = prompt("введите число");
+
+  let result1 = [];
+  let result2 = [];
+  let result3 = [];
+
+  for (let i = 0; i < N; i++) {
+    const randomSymbol = Math.floor(Math.random() * length);
+    const find = without.includes(str[randomSymbol]);
+    if (find) {
+      result1.push(str[randomSymbol - 1]);
+    } else {
+      result1.push(str[randomSymbol]);
+    }
+  }
+  console.log(result1.join(""), "сгенерированная строка");
+
+  if (result1) {
+    replaceSymbol = prompt('введите первый символ');
+    result2 = result1.map((el) => {
+      const findSymbol = symbols.includes(el);
+      if (isNaN(el) && !findSymbol) {
+        return replaceSymbol;
+      } else {
+        return el;
+      }
+    });
+  }
+  console.log(result2.join(''), `строка с заменой на первой символ ${replaceSymbol}`);
+
+  if (result2) {
+    replaceNumber = prompt('введите второй символ');
+    result3 = result2.map((el) => {
+      if (!isNaN(el)) {
+        return replaceNumber;
+      } else {
+        return el;
+      }
+    });
+  }
+  console.log(result3.join(''), `строка с заменой на второй символ ${replaceNumber}`);
+
+  result3.forEach(el => {
+    if (el === replaceSymbol) {
+      countReplaceSymbol++
+    } else if (el === replaceNumber) {
+      countReplaceNumber++
+    } else {
+      countAnotherSymbols++
+    }
+  })
+
+    console.log(countReplaceSymbol, `кол-во повторов первого символа ${replaceSymbol}`),
+    console.log(countReplaceNumber, `кол-во повторов второго символа ${replaceNumber}`),
+    console.log(countAnotherSymbols, 'кол-во символов которые не были заменены')
+</script>
+
+<body>
+
+</body>
+
+</html>
